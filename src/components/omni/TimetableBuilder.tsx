@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useOS } from '../../context/OSContext';
-import { Clock, Sparkles, Filter, Check, Plus } from 'lucide-react';
+import { Clock, Sparkles, Filter, Check, Plus, MapPin } from 'lucide-react';
 
 export const TimetableBuilder: React.FC = () => {
   const { addToast, toggleAI } = useOS();
@@ -133,8 +133,8 @@ export const TimetableBuilder: React.FC = () => {
                         <div style={{ fontSize: '10px', color: 'var(--text-secondary)' }}>
                           {entry.teacher}
                         </div>
-                        <div style={{ fontSize: '10px', fontWeight: 600, color: entry.color }}>
-                          📍 {entry.room}
+                        <div style={{ fontSize: '10px', fontWeight: 600, color: entry.color, display: 'flex', alignItems: 'center', gap: '3px' }}>
+                          <MapPin size={10} /> {entry.room}
                         </div>
                       </div>
                     </td>

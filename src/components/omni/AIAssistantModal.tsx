@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useOS } from '../../context/OSContext';
 import { GlassModal } from '../common/GlassModal';
-import { Sparkles, Send, Bot, User, Check, RefreshCw, FileText } from 'lucide-react';
+import { Sparkles, Send, Bot, User, Check, RefreshCw, FileText, Mail, BookOpen, BarChart2 } from 'lucide-react';
 
 export const AIAssistantModal: React.FC = () => {
   const { isAIOpen, toggleAI, addToast } = useOS();
@@ -117,20 +117,23 @@ export const AIAssistantModal: React.FC = () => {
           <button 
             className="mac-btn mac-btn-sm" 
             onClick={() => handleSend("Draft an encouragement email to parents about upcoming Grade 10 Midterm Exams")}
+            style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
           >
-            ✉️ Draft Parent Email
+            <Mail size={12} /> Draft Parent Email
           </button>
           <button 
             className="mac-btn mac-btn-sm" 
             onClick={() => handleSend("Generate a weekly lesson outline for Grade 12 Advanced Physics")}
+            style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
           >
-            📚 AI Lesson Planner
+            <BookOpen size={12} /> AI Lesson Planner
           </button>
           <button 
             className="mac-btn mac-btn-sm" 
             onClick={() => handleSend("Analyze today's 96.4% attendance trend and suggest improvements")}
+            style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
           >
-            📊 Attendance Insights
+            <BarChart2 size={12} /> Attendance Insights
           </button>
         </div>
 

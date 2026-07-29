@@ -11,7 +11,9 @@ import {
   Server, 
   Bell, 
   ChevronDown, 
-  GraduationCap 
+  GraduationCap,
+  Zap,
+  Building2 
 } from 'lucide-react';
 
 export const MacTopBar: React.FC = () => {
@@ -107,8 +109,8 @@ export const MacTopBar: React.FC = () => {
             transition: 'background 150ms'
           }}
         >
-          <span style={{ fontSize: '14px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }}>
-            {schoolInfo.logo}
+          <span style={{ display: 'flex', alignItems: 'center' }}>
+            <GraduationCap size={15} style={{ color: 'var(--accent-primary)' }} />
           </span>
           <span style={{ fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text-primary)' }}>
             Eduvanta OS
@@ -142,23 +144,23 @@ export const MacTopBar: React.FC = () => {
             <div 
               className="mac-btn" 
               onClick={() => handleSchoolSelect('St. Augustine International Academy', 'Cupertino Campus, CA')}
-              style={{ width: '100%', justifyContent: 'flex-start', border: 'none', background: 'transparent', padding: '8px 10px' }}
+              style={{ width: '100%', justifyContent: 'flex-start', border: 'none', background: 'transparent', padding: '8px 10px', display: 'flex', alignItems: 'center', gap: '8px' }}
             >
-              🎓 St. Augustine International
+              <GraduationCap size={14} style={{ color: 'var(--accent-primary)' }} /> St. Augustine International
             </div>
             <div 
               className="mac-btn" 
               onClick={() => handleSchoolSelect('Eduvanta STEM Prep Academy', 'San Jose Tech Park')}
-              style={{ width: '100%', justifyContent: 'flex-start', border: 'none', background: 'transparent', padding: '8px 10px' }}
+              style={{ width: '100%', justifyContent: 'flex-start', border: 'none', background: 'transparent', padding: '8px 10px', display: 'flex', alignItems: 'center', gap: '8px' }}
             >
-              ⚡ Eduvanta STEM Prep
+              <Zap size={14} style={{ color: '#f59e0b' }} /> Eduvanta STEM Prep
             </div>
             <div 
               className="mac-btn" 
               onClick={() => handleSchoolSelect('Elysium International School', 'San Francisco, CA')}
-              style={{ width: '100%', justifyContent: 'flex-start', border: 'none', background: 'transparent', padding: '8px 10px' }}
+              style={{ width: '100%', justifyContent: 'flex-start', border: 'none', background: 'transparent', padding: '8px 10px', display: 'flex', alignItems: 'center', gap: '8px' }}
             >
-              🏛️ Elysium International
+              <Building2 size={14} style={{ color: '#8b5cf6' }} /> Elysium International
             </div>
           </div>
         )}

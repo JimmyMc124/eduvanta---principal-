@@ -18,11 +18,31 @@ import {
   ChevronLeft, 
   ChevronRight, 
   Sparkles, 
-  UserCheck 
+  UserCheck,
+  Bell,
+  Lock,
+  LogOut,
+  Volume2,
+  VolumeX,
+  ShieldAlert
 } from 'lucide-react';
 
 export const MacSidebar: React.FC = () => {
-  const { activeTab, setActiveTab, schoolInfo, students, teachers } = useOS();
+  const { 
+    activeTab, 
+    setActiveTab, 
+    schoolInfo, 
+    students, 
+    teachers,
+    unreadNotificationCount,
+    toggleNotificationCenter,
+    soundEnabled,
+    toggleSound,
+    lockDashboard,
+    addToast,
+    playSound
+  } = useOS();
+
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   const navGroups: {
@@ -65,6 +85,14 @@ export const MacSidebar: React.FC = () => {
     }
   ];
 
+  const handleLogout = () => {
+    playSound('logout');
+    addToast('Logged Out', 'Principal session terminated securely', 'info');
+    setTimeout(() => {
+      lockDashboard();
+    }, 400);
+  };
+
   return (
     <aside 
       style={{
@@ -82,7 +110,7 @@ export const MacSidebar: React.FC = () => {
         zIndex: 50
       }}
     >
-      {/* Top Header & Collapse Toggle */}
+      {/* Top Brand Header & Collapse Toggle */}
       <div>
         <div 
           style={{
@@ -122,7 +150,10 @@ export const MacSidebar: React.FC = () => {
             </div>
           )}
           <button 
-            onClick={() => setCollapsed(prev => !prev)}
+            onClick={() => {
+              playSound('click');
+              setCollapsed(prev => !prev);
+            }}
             style={{
               background: 'transparent',
               border: 'none',
@@ -139,51 +170,8 @@ export const MacSidebar: React.FC = () => {
           </button>
         </div>
 
-        {/* User Profile Pill */}
-        {!collapsed && (
-          <div style={{ padding: '12px 16px 4px 16px' }}>
-            <div 
-              style={{
-                background: 'var(--bg-surface)',
-                border: '1px solid var(--border-color)',
-                borderRadius: 'var(--radius-md)',
-                padding: '10px 12px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px'
-              }}
-            >
-              <div 
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '50%',
-                  background: '#2563eb',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#fff',
-                  fontWeight: 600,
-                  fontSize: '13px'
-                }}
-              >
-                EV
-              </div>
-              <div style={{ overflow: 'hidden' }}>
-                <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-primary)', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
-                  {schoolInfo.principal}
-                </div>
-                <div style={{ fontSize: '10px', color: 'var(--accent-success)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent-success)' }} />
-                  Principal Terminal
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Navigation List */}
-        <div style={{ padding: '12px 10px', overflowY: 'auto', maxHeight: 'calc(100vh - 180px)' }}>
+        <div style={{ padding: '12px 10px', overflowY: 'auto', maxHeight: 'calc(100vh - 280px)', scrollbarWidth: 'none' }}>
           {navGroups.map((grp, idx) => (
             <div key={idx} style={{ marginBottom: '16px' }}>
               {!collapsed && (
@@ -202,7 +190,10 @@ export const MacSidebar: React.FC = () => {
                 return (
                   <button
                     key={item.id}
-                    onClick={() => setActiveTab(item.id)}
+                    onClick={() => {
+                      playSound('click');
+                      setActiveTab(item.id);
+                    }}
                     style={{
                       width: '100%',
                       display: 'flex',
@@ -238,15 +229,235 @@ export const MacSidebar: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom Footer */}
-      {!collapsed && (
-        <div style={{ padding: '14px 16px', borderTop: '1px solid var(--border-color-subtle)', fontSize: '11px', color: 'var(--text-muted)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <Sparkles size={12} style={{ color: 'var(--accent-primary)' }} />
-            <span>Eduvanta OS AI Active</span>
+      {/* Bottom Profile & Actions Section */}
+      <div 
+        style={{ 
+          borderTop: '1px solid var(--border-color-subtle)',
+          backgroundColor: 'var(--bg-surface)',
+          padding: collapsed ? '12px 8px' : '12px 14px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px'
+        }}
+      >
+        {/* Profile Details Box */}
+        {!collapsed ? (
+          <div 
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              padding: '6px 8px',
+              borderRadius: 'var(--radius-md)',
+              backgroundColor: 'rgba(255,255,255,0.02)',
+              border: '1px solid var(--border-color-subtle)'
+            }}
+          >
+            {/* Principal Profile Photo Avatar */}
+            <div style={{ position: 'relative' }}>
+              <div 
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #2563eb, #7c3aed)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#fff',
+                  fontWeight: 700,
+                  fontSize: '13px',
+                  boxShadow: '0 2px 8px rgba(37, 99, 235, 0.3)'
+                }}
+              >
+                EV
+              </div>
+              {/* Online Status Indicator */}
+              <span 
+                style={{
+                  position: 'absolute',
+                  bottom: '0',
+                  right: '0',
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  backgroundColor: 'var(--accent-success)',
+                  border: '2px solid var(--bg-sidebar)',
+                  boxShadow: '0 0 6px var(--accent-success)'
+                }}
+                title="Status: Online & Terminal Active"
+              />
+            </div>
+
+            <div style={{ overflow: 'hidden', flex: 1 }}>
+              <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                {schoolInfo.principal}
+              </div>
+              <div style={{ fontSize: '10px', color: 'var(--accent-primary)', fontWeight: 600 }}>
+                Principal
+              </div>
+              <div style={{ fontSize: '9px', color: 'var(--text-muted)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                {schoolInfo.name}
+              </div>
+            </div>
           </div>
+        ) : (
+          <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+            <div 
+              style={{
+                width: '36px',
+                height: '36px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #2563eb, #7c3aed)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#fff',
+                fontWeight: 700,
+                fontSize: '13px'
+              }}
+              title={`${schoolInfo.principal} - Principal`}
+            >
+              EV
+            </div>
+            <span 
+              style={{
+                position: 'absolute',
+                bottom: '0',
+                right: '12px',
+                width: '10px',
+                height: '10px',
+                borderRadius: '50%',
+                backgroundColor: 'var(--accent-success)',
+                border: '2px solid var(--bg-sidebar)'
+              }}
+            />
+          </div>
+        )}
+
+        {/* Action Buttons Toolbar */}
+        <div 
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: collapsed ? 'center' : 'space-between',
+            gap: '4px',
+            flexWrap: collapsed ? 'wrap' : 'nowrap'
+          }}
+        >
+          {/* Notifications Button */}
+          <button
+            onClick={toggleNotificationCenter}
+            style={{
+              position: 'relative',
+              background: 'transparent',
+              border: 'none',
+              color: 'var(--text-secondary)',
+              cursor: 'pointer',
+              padding: '6px',
+              borderRadius: 'var(--radius-sm)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            title="Notifications Center"
+          >
+            <Bell size={15} />
+            {unreadNotificationCount > 0 && (
+              <span 
+                style={{
+                  position: 'absolute',
+                  top: '2px',
+                  right: '2px',
+                  width: '7px',
+                  height: '7px',
+                  borderRadius: '50%',
+                  backgroundColor: 'var(--accent-primary)'
+                }}
+              />
+            )}
+          </button>
+
+          {/* Sound Toggle Button */}
+          <button
+            onClick={toggleSound}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: soundEnabled ? 'var(--accent-success)' : 'var(--text-muted)',
+              cursor: 'pointer',
+              padding: '6px',
+              borderRadius: 'var(--radius-sm)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            title={soundEnabled ? 'Audio Effects On' : 'Audio Effects Muted'}
+          >
+            {soundEnabled ? <Volume2 size={15} /> : <VolumeX size={15} />}
+          </button>
+
+          {/* Settings Button */}
+          <button
+            onClick={() => {
+              playSound('click');
+              setActiveTab('settings');
+            }}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: activeTab === 'settings' ? 'var(--accent-primary)' : 'var(--text-secondary)',
+              cursor: 'pointer',
+              padding: '6px',
+              borderRadius: 'var(--radius-sm)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            title="System Settings"
+          >
+            <Settings size={15} />
+          </button>
+
+          {/* Lock Dashboard Button */}
+          <button
+            onClick={lockDashboard}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: 'var(--text-secondary)',
+              cursor: 'pointer',
+              padding: '6px',
+              borderRadius: 'var(--radius-sm)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            title="Lock Dashboard Terminal"
+          >
+            <Lock size={15} />
+          </button>
+
+          {/* Logout Button */}
+          <button
+            onClick={handleLogout}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: 'var(--accent-danger)',
+              cursor: 'pointer',
+              padding: '6px',
+              borderRadius: 'var(--radius-sm)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            title="Logout Principal Terminal"
+          >
+            <LogOut size={15} />
+          </button>
         </div>
-      )}
+      </div>
     </aside>
   );
 };

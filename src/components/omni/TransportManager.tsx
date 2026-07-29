@@ -46,8 +46,8 @@ export const TransportManager: React.FC = () => {
               <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px' }}>
                 Driver: {bus.driverName} • {bus.studentsCount} Students Onboard
               </div>
-              <div style={{ fontSize: '11px', color: 'var(--accent-info)', marginTop: '6px', fontWeight: 500 }}>
-                📍 {bus.currentLocationName}
+              <div style={{ fontSize: '11px', color: 'var(--accent-info)', marginTop: '6px', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <MapPin size={12} /> {bus.currentLocationName}
               </div>
             </div>
           ))}

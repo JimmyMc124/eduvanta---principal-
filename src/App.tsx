@@ -2,11 +2,13 @@ import React from 'react';
 import { OSProvider, useOS } from './context/OSContext';
 import { MacTopBar } from './components/common/MacTopBar';
 import { MacSidebar } from './components/common/MacSidebar';
-import { MacDock } from './components/common/MacDock';
 import { ControlCenter } from './components/common/ControlCenter';
 import { SpotlightSearch } from './components/common/SpotlightSearch';
 import { ContextMenu } from './components/common/ContextMenu';
 import { ToastContainer } from './components/common/ToastContainer';
+import { NotificationCenter } from './components/common/NotificationCenter';
+import { QuickCreateMenu } from './components/common/QuickCreateMenu';
+import { LockScreen } from './components/common/LockScreen';
 import { AIAssistantModal } from './components/omni/AIAssistantModal';
 
 import { PrincipalDashboard } from './components/dashboard/PrincipalDashboard';
@@ -24,7 +26,7 @@ import { CalendarView } from './components/calendar/CalendarView';
 import { SettingsManager } from './components/settings/SettingsManager';
 
 const AppContent: React.FC = () => {
-  const { activeTab, showContextMenu } = useOS();
+  const { activeTab, showContextMenu, lockDashboard } = useOS();
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -64,8 +66,8 @@ const AppContent: React.FC = () => {
     <div 
       className="eduvanta-os-container"
       onContextMenu={(e) => showContextMenu(e, [
-        { label: 'Refresh Telemetry', action: () => window.location.reload() },
-        { label: 'Open Control Center', action: () => {} }
+        { label: 'Lock Terminal', action: lockDashboard },
+        { label: 'Refresh OS Context', action: () => window.location.reload() }
       ])}
     >
       {/* Top macOS Bar */}
@@ -75,15 +77,15 @@ const AppContent: React.FC = () => {
       <div className="eduvanta-main-layout">
         <MacSidebar />
 
-        <main className="eduvanta-content-area">
+        <main className="eduvanta-content-area" style={{ paddingBottom: '24px' }}>
           {renderTabContent()}
         </main>
       </div>
 
-      {/* Floating macOS Dock */}
-      <MacDock />
-
-      {/* Overlays and Modals */}
+      {/* Overlays, Modals, Floating Menu & Lock Screen */}
+      <NotificationCenter />
+      <QuickCreateMenu />
+      <LockScreen />
       <ControlCenter />
       <SpotlightSearch />
       <ContextMenu />

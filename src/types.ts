@@ -55,6 +55,14 @@ export interface Student {
   parentContact: string;
   status: 'Active' | 'Suspended' | 'Graduated';
   avatar?: string;
+  house?: string;
+  dob?: string;
+  bloodGroup?: string;
+  allergies?: string[];
+  emergencyContact?: string;
+  medicalNotes?: string;
+  disciplineLog?: { id: string; date: string; title: string; type: 'Commendation' | 'Warning' | 'Detention'; remark: string }[];
+  feeRecords?: { id: string; term: string; amount: number; date: string; status: 'Paid' | 'Pending' }[];
 }
 
 export interface Teacher {
@@ -68,6 +76,10 @@ export interface Teacher {
   contact: string;
   email: string;
   avatar?: string;
+  salary?: number;
+  classesAssigned?: string[];
+  leaveBalance?: number;
+  performanceNotes?: string;
 }
 
 export interface BusRoute {
@@ -142,4 +154,17 @@ export interface ToastNotification {
   message: string;
   type: 'info' | 'success' | 'warning' | 'danger';
   timestamp: string;
+}
+
+export type NotificationCategory = 'Students' | 'Teachers' | 'Finance' | 'Attendance' | 'Exams' | 'System' | 'Security';
+
+export interface NotificationItem {
+  id: string;
+  title: string;
+  message: string;
+  category: NotificationCategory;
+  timestamp: string;
+  isRead: boolean;
+  isPinned: boolean;
+  actionUrl?: string;
 }

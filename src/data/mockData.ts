@@ -4,7 +4,7 @@ export const INITIAL_SCHOOL: SchoolInfo = {
   id: 'eduvanta-main',
   name: 'St. Augustine International Academy',
   motto: 'Veritas, Excellentia et Innovatio',
-  logo: '🎓',
+  logo: 'GraduationCap',
   principal: 'Dr. Eleanor Vance, Ph.D.',
   location: 'Cupertino Campus, CA',
   status: 'online',
@@ -78,6 +78,72 @@ export const MOCK_EVENTS: SchoolEvent[] = [
   { id: 'EVT-02', title: 'Parent-Teacher Conference Q3', date: '2026-08-12', time: '01:00 PM', type: 'Meeting', location: 'Virtual & Campus Classrooms', participants: 'Parents & Teachers' },
   { id: 'EVT-03', title: 'Independence Day Holiday', date: '2026-08-15', time: 'All Day', type: 'Holiday', location: 'Campus Closed', participants: 'Entire School' },
   { id: 'EVT-04', title: 'Inter-School Football Championship', date: '2026-08-20', time: '03:30 PM', type: 'Sports', location: 'Eduvanta Athletic Stadium', participants: 'Sports Teams & Students' },
+];
+
+export const MOCK_NOTIFICATIONS = [
+  {
+    id: 'notif-1',
+    title: 'New Student Registration',
+    message: 'Alexander Wright enrolled in Grade 10-A. Medical records attached.',
+    category: 'Students' as const,
+    timestamp: '5m ago',
+    isRead: false,
+    isPinned: true
+  },
+  {
+    id: 'notif-2',
+    title: 'Q3 Tuition Batch Received',
+    message: '$48,500 collected from Grade 10 & 11 online portal payments.',
+    category: 'Finance' as const,
+    timestamp: '15m ago',
+    isRead: false,
+    isPinned: true
+  },
+  {
+    id: 'notif-3',
+    title: 'Attendance Warning Alert',
+    message: 'Grade 9-B daily attendance dropped to 88.2%. Class counselor notified.',
+    category: 'Attendance' as const,
+    timestamp: '1h ago',
+    isRead: false,
+    isPinned: false
+  },
+  {
+    id: 'notif-4',
+    title: 'Faculty Workload Synced',
+    message: 'Dr. Clara Thorne assigned as Head Examiner for Grade 12 Calculus Finals.',
+    category: 'Teachers' as const,
+    timestamp: '2h ago',
+    isRead: true,
+    isPinned: false
+  },
+  {
+    id: 'notif-5',
+    title: 'Midterm Exam Schedule Published',
+    message: '2026 Academic Midterm Exam timetables sent to 1,240 parents & students.',
+    category: 'Exams' as const,
+    timestamp: '3h ago',
+    isRead: true,
+    isPinned: false
+  },
+  {
+    id: 'notif-6',
+    title: 'Cloud Snapshot Completed',
+    message: 'Automated Firestore & PostgreSQL DB backup completed (v4.2.0-snap).',
+    category: 'System' as const,
+    timestamp: '5h ago',
+    isRead: true,
+    isPinned: false
+  },
+  {
+    id: 'notif-7',
+    title: 'Firewall Intrusion Blocked',
+    message: 'Security Firewall blocked 3 malicious login attempts from IP 185.220.101.4.',
+    category: 'Security' as const,
+    timestamp: '8h ago',
+    isRead: false,
+    isPinned: false
+  }
 ];
 
 export const MOCK_ACCOUNTS: UserAccount[] = [
