@@ -3,7 +3,7 @@ import { useOS } from '../../context/OSContext';
 import { Lock, Fingerprint, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
 
 export const LockScreen: React.FC = () => {
-  const { isLocked, unlockDashboard, schoolInfo } = useOS();
+  const { isLocked, unlockDashboard, schoolInfo, userRole, setUserRole } = useOS();
   const [pin, setPin] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string>('');
 
@@ -154,6 +154,62 @@ export const LockScreen: React.FC = () => {
             </div>
           )}
 
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', marginTop: '6px' }}>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>
+              Select Login Role
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '6px' }}>
+              <button 
+                type="button" 
+                onClick={() => setUserRole('Principal')}
+                style={{
+                  padding: '6px 4px',
+                  borderRadius: '6px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  border: userRole === 'Principal' ? '1px solid #3b82f6' : '1px solid var(--border-color)',
+                  background: userRole === 'Principal' ? 'rgba(59,130,246,0.2)' : 'transparent',
+                  color: userRole === 'Principal' ? '#60a5fa' : 'var(--text-secondary)',
+                  cursor: 'pointer'
+                }}
+              >
+                Principal
+              </button>
+              <button 
+                type="button" 
+                onClick={() => setUserRole('Teacher')}
+                style={{
+                  padding: '6px 4px',
+                  borderRadius: '6px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  border: userRole === 'Teacher' ? '1px solid #8b5cf6' : '1px solid var(--border-color)',
+                  background: userRole === 'Teacher' ? 'rgba(139,92,246,0.2)' : 'transparent',
+                  color: userRole === 'Teacher' ? '#a78bfa' : 'var(--text-secondary)',
+                  cursor: 'pointer'
+                }}
+              >
+                Teacher
+              </button>
+              <button 
+                type="button" 
+                onClick={() => setUserRole('Student')}
+                style={{
+                  padding: '6px 4px',
+                  borderRadius: '6px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  border: userRole === 'Student' ? '1px solid #10b981' : '1px solid var(--border-color)',
+                  background: userRole === 'Student' ? 'rgba(16,185,129,0.2)' : 'transparent',
+                  color: userRole === 'Student' ? '#34d399' : 'var(--text-secondary)',
+                  cursor: 'pointer'
+                }}
+              >
+                Student
+              </button>
+            </div>
+          </div>
+
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '8px' }}>
             <button 
               type="button"
@@ -172,7 +228,7 @@ export const LockScreen: React.FC = () => {
               }}
             >
               <Fingerprint size={14} style={{ color: 'var(--accent-primary)' }} />
-              <span>Touch ID / Unlock</span>
+              <span>Touch ID / Quick Unlock as {userRole}</span>
             </button>
           </div>
         </form>

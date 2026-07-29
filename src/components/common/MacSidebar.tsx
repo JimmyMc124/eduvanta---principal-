@@ -5,11 +5,11 @@ import {
   LayoutDashboard, 
   Users, 
   GraduationCap, 
+  Crown,
   BarChart3, 
   Grid, 
   Calendar, 
   BookOpen, 
-  Bus, 
   Award, 
   ShieldCheck, 
   MessageSquare, 
@@ -31,6 +31,8 @@ export const MacSidebar: React.FC = () => {
   const { 
     activeTab, 
     setActiveTab, 
+    userRole,
+    setUserRole,
     schoolInfo, 
     students, 
     teachers,
@@ -45,14 +47,22 @@ export const MacSidebar: React.FC = () => {
 
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
+  const getDashboardLabel = () => {
+    if (userRole === 'Teacher') return 'Teacher Workspace';
+    if (userRole === 'Student') return 'Student Learning Hub';
+    return 'Principal Command Center';
+  };
+
   const navGroups: {
     group: string;
     items: { id: NavigationTab; label: string; icon: React.ReactNode; badge?: string | number }[];
   }[] = [
     {
-      group: 'MAIN OS',
+      group: 'ROLE WORKSPACES',
       items: [
-        { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={16} /> },
+        { id: 'principal-dashboard', label: 'Principal Command', icon: <Crown size={16} /> },
+        { id: 'teacher-dashboard', label: 'Teacher Workspace', icon: <BookOpen size={16} /> },
+        { id: 'student-dashboard', label: 'Student Learning Hub', icon: <GraduationCap size={16} /> },
         { id: 'omni-tools', label: 'Control Center / Omni', icon: <Grid size={16} />, badge: '18+' },
         { id: 'analytics', label: 'Analytics & AI', icon: <BarChart3 size={16} /> }
       ]
@@ -69,7 +79,6 @@ export const MacSidebar: React.FC = () => {
       group: 'INFRASTRUCTURE',
       items: [
         { id: 'library', label: 'Library Catalog', icon: <BookOpen size={16} /> },
-        { id: 'transport', label: 'Bus GPS Tracking', icon: <Bus size={16} />, badge: 'Live' },
         { id: 'certificates', label: 'Certificates & IDs', icon: <Award size={16} /> }
       ]
     },

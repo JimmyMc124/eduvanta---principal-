@@ -1,9 +1,9 @@
 import React from 'react';
 import { useOS } from '../../context/OSContext';
-import { CheckCircle2, AlertTriangle, Info, XCircle, GraduationCap } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Info, XCircle, X } from 'lucide-react';
 
 export const ToastContainer: React.FC = () => {
-  const { toasts } = useOS();
+  const { toasts, removeToast } = useOS();
 
   if (!toasts.length) return null;
 
@@ -45,20 +45,41 @@ export const ToastContainer: React.FC = () => {
             padding: '12px 14px',
             display: 'flex',
             alignItems: 'flex-start',
-            gap: '10px'
+            gap: '10px',
+            transition: 'all 0.3s ease'
           }}
         >
           <div style={{ marginTop: '2px' }}>
             {getIcon(toast.type)}
           </div>
           <div style={{ flex: 1 }}>
-            <div className="flex-between" style={{ marginBottom: '2px' }}>
+            <div className="flex-between" style={{ marginBottom: '2px', gap: '8px' }}>
               <span style={{ fontWeight: 600, fontSize: '12px', color: 'var(--text-primary)' }}>
                 {toast.title}
               </span>
-              <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
-                {toast.timestamp}
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
+                  {toast.timestamp}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => removeToast(toast.id)}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--text-muted)',
+                    cursor: 'pointer',
+                    padding: '2px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '4px'
+                  }}
+                  title="Close"
+                >
+                  <X size={12} />
+                </button>
+              </div>
             </div>
             <div style={{ fontSize: '11px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
               {toast.message}

@@ -1,7 +1,12 @@
 // Eduvanta OS TypeScript Interfaces and Enums
 
+export type UserRole = 'Principal' | 'Teacher' | 'Student';
+
 export type NavigationTab = 
   | 'dashboard'
+  | 'principal-dashboard'
+  | 'teacher-dashboard'
+  | 'student-dashboard'
   | 'students'
   | 'teachers'
   | 'analytics'

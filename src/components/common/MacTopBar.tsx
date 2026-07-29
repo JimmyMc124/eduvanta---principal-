@@ -13,12 +13,20 @@ import {
   ChevronDown, 
   GraduationCap,
   Zap,
-  Building2 
+  Building2,
+  UserCheck,
+  User,
+  Crown,
+  BookOpen,
+  Shield
 } from 'lucide-react';
+import { UserRole } from '../../types';
 
 export const MacTopBar: React.FC = () => {
   const { 
     activeTab, 
+    userRole,
+    setUserRole,
     theme, 
     toggleTheme, 
     toggleControlCenter, 
@@ -28,12 +36,15 @@ export const MacTopBar: React.FC = () => {
     setSchoolInfo,
     systemHealth,
     toasts,
+    addToast,
+    playSound,
     showContextMenu 
   } = useOS();
 
   const [timeString, setTimeString] = useState<string>('');
   const [dateString, setDateString] = useState<string>('');
   const [schoolMenuOpen, setSchoolMenuOpen] = useState<boolean>(false);
+  const [roleMenuOpen, setRoleMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -54,7 +65,6 @@ export const MacTopBar: React.FC = () => {
     'omni-tools': 'Omni Tools Control Center',
     timetable: 'Interactive Timetable Builder',
     library: 'Library Catalog & Loans',
-    transport: 'Transport & GPS Bus Tracking',
     certificates: 'Certificates & ID Generator',
     security: 'Security, Firewall & Audit Logs',
     communication: 'Communications & Messages',
@@ -167,6 +177,89 @@ export const MacTopBar: React.FC = () => {
 
         <div style={{ color: 'var(--text-muted)', fontSize: '11px' }}>
           • {tabLabels[activeTab] || 'Dashboard'}
+        </div>
+
+        {/* Role Switcher Pill */}
+        <div style={{ position: 'relative' }}>
+          <div 
+            onClick={() => setRoleMenuOpen(prev => !prev)}
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '6px', 
+              cursor: 'pointer',
+              padding: '2px 8px',
+              borderRadius: 'var(--radius-full)',
+              background: userRole === 'Principal' ? 'rgba(59,130,246,0.15)' : userRole === 'Teacher' ? 'rgba(139,92,246,0.15)' : 'rgba(16,185,129,0.15)',
+              border: `1px solid ${userRole === 'Principal' ? 'rgba(59,130,246,0.3)' : userRole === 'Teacher' ? 'rgba(139,92,246,0.3)' : 'rgba(16,185,129,0.3)'}`,
+              color: userRole === 'Principal' ? '#60a5fa' : userRole === 'Teacher' ? '#a78bfa' : '#34d399',
+              fontSize: '11px',
+              fontWeight: 700
+            }}
+          >
+            <UserCheck size={12} />
+            <span>Role: {userRole}</span>
+            <ChevronDown size={10} />
+          </div>
+
+          {roleMenuOpen && (
+            <div 
+              className="animate-slide-down"
+              style={{
+                position: 'absolute',
+                top: '28px',
+                left: '0',
+                width: '180px',
+                backgroundColor: 'var(--bg-popover)',
+                backdropFilter: 'var(--backdrop-blur)',
+                border: '1px solid var(--border-color)',
+                borderRadius: 'var(--radius-md)',
+                boxShadow: 'var(--shadow-lg)',
+                padding: '4px',
+                zIndex: 120
+              }}
+            >
+              <div style={{ padding: '4px 8px', fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>
+                Switch Workspace Role
+              </div>
+              <div 
+                className="mac-btn" 
+                onClick={() => {
+                  playSound('click');
+                  setUserRole('Principal');
+                  setRoleMenuOpen(false);
+                  addToast('Role Switched', 'Switched to Principal Executive Command Center', 'info');
+                }}
+                style={{ width: '100%', justifyContent: 'flex-start', border: 'none', background: 'transparent', padding: '6px 8px', fontSize: '11px', fontWeight: userRole === 'Principal' ? 700 : 500, color: '#60a5fa', display: 'flex', alignItems: 'center', gap: '6px' }}
+              >
+                <Crown size={13} /> Principal Mode
+              </div>
+              <div 
+                className="mac-btn" 
+                onClick={() => {
+                  playSound('click');
+                  setUserRole('Teacher');
+                  setRoleMenuOpen(false);
+                  addToast('Role Switched', 'Switched to Teacher Classroom Workspace', 'info');
+                }}
+                style={{ width: '100%', justifyContent: 'flex-start', border: 'none', background: 'transparent', padding: '6px 8px', fontSize: '11px', fontWeight: userRole === 'Teacher' ? 700 : 500, color: '#a78bfa', display: 'flex', alignItems: 'center', gap: '6px' }}
+              >
+                <BookOpen size={13} /> Teacher Mode
+              </div>
+              <div 
+                className="mac-btn" 
+                onClick={() => {
+                  playSound('click');
+                  setUserRole('Student');
+                  setRoleMenuOpen(false);
+                  addToast('Role Switched', 'Switched to Student Learning Hub', 'info');
+                }}
+                style={{ width: '100%', justifyContent: 'flex-start', border: 'none', background: 'transparent', padding: '6px 8px', fontSize: '11px', fontWeight: userRole === 'Student' ? 700 : 500, color: '#34d399', display: 'flex', alignItems: 'center', gap: '6px' }}
+              >
+                <GraduationCap size={13} /> Student Mode
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

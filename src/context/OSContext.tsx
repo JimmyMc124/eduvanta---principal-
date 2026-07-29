@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
   NavigationTab, 
+  UserRole,
   SystemTheme, 
   SchoolInfo, 
   SystemHealth, 
@@ -40,6 +41,8 @@ interface ContextMenuState {
 interface OSContextType {
   activeTab: NavigationTab;
   setActiveTab: (tab: NavigationTab) => void;
+  userRole: UserRole;
+  setUserRole: (role: UserRole) => void;
   theme: SystemTheme;
   toggleTheme: () => void;
   soundEnabled: boolean;
@@ -81,6 +84,7 @@ interface OSContextType {
   addNotification: (title: string, message: string, category: NotificationItem['category']) => void;
   toasts: ToastNotification[];
   addToast: (title: string, message: string, type?: ToastNotification['type']) => void;
+  removeToast: (id: string) => void;
   contextMenu: ContextMenuState;
   showContextMenu: (e: React.MouseEvent, items: ContextMenuState['items']) => void;
   hideContextMenu: () => void;
@@ -100,6 +104,7 @@ const OSContext = createContext<OSContextType | undefined>(undefined);
 
 export const OSProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [activeTab, setActiveTab] = useState<NavigationTab>('dashboard');
+  const [userRole, setUserRole] = useState<UserRole>('Principal');
   const [theme, setTheme] = useState<SystemTheme>('dark');
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
   const [isControlCenterOpen, setIsControlCenterOpen] = useState<boolean>(false);
@@ -244,15 +249,32 @@ export const OSProvider: React.FC<{ children: React.ReactNode }> = ({ children }
     return false;
   };
 
+  const removeToast = (id: string) => {
+    setToasts(prev => prev.filter(t => t.id !== id));
+  };
+
+  // Auto-dismiss the initial ready toast
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      removeToast('toast-1');
+    }, 3800);
+    return () => clearTimeout(timer);
+  }, []);
+
   const addToast = (title: string, message: string, type: ToastNotification['type'] = 'info') => {
+    playSound('notification');
+    const toastId = `toast-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`;
     const newToast: ToastNotification = {
-      id: `toast-${Date.now()}`,
+      id: toastId,
       title,
       message,
       type,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
-    setToasts(prev => [newToast, ...prev.slice(0, 4)]);
+    setToasts(prev => [newToast, ...prev.slice(0, 3)]);
+    setTimeout(() => {
+      removeToast(toastId);
+    }, 3800);
   };
 
   const unreadNotificationCount = notifications.filter(n => !n.isRead).length;
@@ -409,6 +431,8 @@ export const OSProvider: React.FC<{ children: React.ReactNode }> = ({ children }
     <OSContext.Provider value={{
       activeTab,
       setActiveTab,
+      userRole,
+      setUserRole,
       theme,
       toggleTheme,
       soundEnabled,
@@ -450,6 +474,7 @@ export const OSProvider: React.FC<{ children: React.ReactNode }> = ({ children }
       addNotification,
       toasts,
       addToast,
+      removeToast,
       contextMenu,
       showContextMenu,
       hideContextMenu,

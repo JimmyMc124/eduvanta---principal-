@@ -7,7 +7,6 @@ import {
   UserCheck, 
   DollarSign, 
   BookOpen, 
-  Bus, 
   Activity, 
   TrendingUp, 
   Sparkles, 
@@ -174,16 +173,6 @@ export const PrincipalDashboard: React.FC = () => {
           </div>
 
           <div className="glass-card" style={{ padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Bus size={16} className="text-blue-400" />
-            <div>
-              <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>GPS Fleet Telemetry</div>
-              <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)' }}>
-                18 Buses Active • 0 Delay
-              </div>
-            </div>
-          </div>
-
-          <div className="glass-card" style={{ padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Server size={16} className="text-purple-400" />
             <div>
               <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Server & API Latency</div>
@@ -230,7 +219,7 @@ export const PrincipalDashboard: React.FC = () => {
           </div>
           <div>
             <div style={{ fontSize: '24px', fontWeight: 800, color: '#10b981' }}>+$48,500</div>
-            <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-secondary)' }}>Tuition & Bus Fee Batch Receipts</div>
+            <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-secondary)' }}>Tuition & Academic Fee Batch Receipts</div>
           </div>
           <div style={{ fontSize: '11px', color: 'var(--text-muted)', borderTop: '1px solid var(--border-color-subtle)', paddingTop: '8px' }}>
             Pending Dues: <span style={{ color: 'var(--accent-warning)', fontWeight: 600 }}>$42,500</span> • Payroll Due: <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>Aug 1</span>

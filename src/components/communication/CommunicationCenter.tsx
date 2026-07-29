@@ -18,7 +18,7 @@ export const CommunicationCenter: React.FC = () => {
   const chats = [
     { id: '1', title: 'Parent Broadcast: Midterm Schedule', sender: 'Principal Vance', time: '10:00 AM', preview: 'Reminder to all parents regarding the Q3 exam timetable...', unread: true },
     { id: '2', title: 'Faculty Council Group', sender: 'Dr. Clara Thorne', time: '09:15 AM', preview: 'Meeting notes from STEM department head briefing...', unread: false },
-    { id: '3', title: 'Bus 01 Parent Channel', sender: 'Robert Davis (Driver)', time: '08:45 AM', preview: 'Vehicle 01 arrived safely at Silicon Campus Main Gate...', unread: false },
+    { id: '3', title: 'Class 12-A Parent Channel', sender: 'Sarah Jenkins (Class Advisory)', time: '08:45 AM', preview: 'Reminder: Calculus Lab reports are due tomorrow at 11:59 PM.', unread: false },
   ];
 
   const handleBroadcast = (e: React.FormEvent) => {

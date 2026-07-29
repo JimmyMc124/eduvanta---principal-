@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useOS } from '../../context/OSContext';
-import { Search, Command, ArrowRight, User, GraduationCap, Grid, Bus, BookOpen, ShieldCheck, DollarSign, X } from 'lucide-react';
+import { Search, Command, ArrowRight, User, GraduationCap, Grid, BookOpen, ShieldCheck, DollarSign, X } from 'lucide-react';
 import { NavigationTab } from '../../types';
 
 export const SpotlightSearch: React.FC = () => {
@@ -9,7 +9,6 @@ export const SpotlightSearch: React.FC = () => {
     toggleSpotlight, 
     students, 
     teachers, 
-    busRoutes, 
     books, 
     setActiveTab, 
     addToast 
@@ -21,7 +20,6 @@ export const SpotlightSearch: React.FC = () => {
 
   const filteredStudents = query.trim() ? students.filter(s => s.name.toLowerCase().includes(query.toLowerCase()) || s.rollNo.toLowerCase().includes(query.toLowerCase())) : [];
   const filteredTeachers = query.trim() ? teachers.filter(t => t.name.toLowerCase().includes(query.toLowerCase()) || t.department.toLowerCase().includes(query.toLowerCase())) : [];
-  const filteredBuses = query.trim() ? busRoutes.filter(b => b.busNumber.toLowerCase().includes(query.toLowerCase()) || b.driverName.toLowerCase().includes(query.toLowerCase())) : [];
   const filteredBooks = query.trim() ? books.filter(bk => bk.title.toLowerCase().includes(query.toLowerCase()) || bk.author.toLowerCase().includes(query.toLowerCase())) : [];
 
   const handleSelectTab = (tab: NavigationTab) => {
@@ -75,7 +73,7 @@ export const SpotlightSearch: React.FC = () => {
           <Search size={20} style={{ color: 'var(--accent-primary)' }} />
           <input 
             type="text" 
-            placeholder="Spotlight Search... (Type 'Alexander', 'Physics', 'Bus', 'Library')"
+            placeholder="Spotlight Search... (Type 'Alexander', 'Physics', 'Calculus', 'Library')"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             autoFocus
@@ -116,8 +114,8 @@ export const SpotlightSearch: React.FC = () => {
                 <button className="mac-btn" onClick={() => handleSelectTab('teachers')} style={{ justifyContent: 'flex-start' }}>
                   <GraduationCap size={14} /> Faculty & Departments
                 </button>
-                <button className="mac-btn" onClick={() => handleSelectTab('transport')} style={{ justifyContent: 'flex-start' }}>
-                  <Bus size={14} /> Live Bus Tracker
+                <button className="mac-btn" onClick={() => handleSelectTab('library')} style={{ justifyContent: 'flex-start' }}>
+                  <BookOpen size={14} /> Library Catalog
                 </button>
                 <button className="mac-btn" onClick={() => handleSelectTab('finance')} style={{ justifyContent: 'flex-start' }}>
                   <DollarSign size={14} /> Financial Ledger
@@ -200,32 +198,6 @@ export const SpotlightSearch: React.FC = () => {
                     </div>
                   </div>
                   <ArrowRight size={14} style={{ color: 'var(--text-muted)' }} />
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Bus Matches */}
-          {filteredBuses.length > 0 && (
-            <div>
-              <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>
-                School Transport
-              </div>
-              {filteredBuses.map(bus => (
-                <div 
-                  key={bus.id}
-                  onClick={() => handleSelectTab('transport')}
-                  className="glass-card"
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 12px', cursor: 'pointer', marginBottom: '4px' }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <Bus size={16} style={{ color: 'var(--accent-info)' }} />
-                    <div>
-                      <div style={{ fontWeight: 600, fontSize: '13px' }}>{bus.busNumber}</div>
-                      <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Driver: {bus.driverName} | Location: {bus.currentLocationName}</div>
-                    </div>
-                  </div>
-                  <span className="mac-badge mac-badge-info">{bus.status}</span>
                 </div>
               ))}
             </div>

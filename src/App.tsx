@@ -12,6 +12,8 @@ import { LockScreen } from './components/common/LockScreen';
 import { AIAssistantModal } from './components/omni/AIAssistantModal';
 
 import { PrincipalDashboard } from './components/dashboard/PrincipalDashboard';
+import { TeacherDashboard } from './components/dashboard/TeacherDashboard';
+import { StudentDashboard } from './components/dashboard/StudentDashboard';
 import { StudentManager } from './components/academic/StudentManager';
 import { TeacherManager } from './components/academic/TeacherManager';
 import { OmniToolsCenter } from './components/omni/OmniToolsCenter';
@@ -26,11 +28,20 @@ import { CalendarView } from './components/calendar/CalendarView';
 import { SettingsManager } from './components/settings/SettingsManager';
 
 const AppContent: React.FC = () => {
-  const { activeTab, showContextMenu, lockDashboard } = useOS();
+  const { activeTab, userRole, showContextMenu, lockDashboard } = useOS();
 
   const renderTabContent = () => {
     switch (activeTab) {
+      case 'principal-dashboard':
+        return <PrincipalDashboard />;
+      case 'teacher-dashboard':
+        return <TeacherDashboard />;
+      case 'student-dashboard':
+        return <StudentDashboard />;
       case 'dashboard':
+        if (userRole === 'Teacher') return <TeacherDashboard />;
+        if (userRole === 'Student') return <StudentDashboard />;
+        return <PrincipalDashboard />;
       case 'analytics':
         return <PrincipalDashboard />;
       case 'students':
@@ -44,7 +55,7 @@ const AppContent: React.FC = () => {
       case 'library':
         return <LibraryManager />;
       case 'transport':
-        return <TransportManager />;
+        return <OmniToolsCenter />;
       case 'certificates':
         return <CertificateGenerator />;
       case 'security':
