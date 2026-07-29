@@ -1,0 +1,389 @@
+/* ==========================================================================
+   EDUVANTA OPERATING SYSTEM - APPLE macOS DESIGN SYSTEM CSS
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Dark Theme Default (macOS Space Gray / Midnight) */
+  --bg-app: #0d0f14;
+  --bg-wallpaper: radial-gradient(circle at 15% 15%, rgba(45, 55, 72, 0.4) 0%, transparent 40%),
+                  radial-gradient(circle at 85% 85%, rgba(30, 41, 59, 0.5) 0%, transparent 50%),
+                  radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.8) 0%, #090a0f 100%);
+  --bg-surface: rgba(22, 27, 38, 0.72);
+  --bg-surface-hover: rgba(33, 41, 57, 0.85);
+  --bg-surface-active: rgba(45, 55, 78, 0.95);
+  --bg-glass: rgba(18, 22, 32, 0.65);
+  --bg-glass-solid: #131722;
+  --bg-topbar: rgba(13, 16, 23, 0.82);
+  --bg-sidebar: rgba(15, 19, 28, 0.75);
+  --bg-dock: rgba(20, 26, 38, 0.6);
+  --bg-card: rgba(24, 30, 44, 0.6);
+  --bg-card-hover: rgba(32, 40, 58, 0.75);
+  --bg-input: rgba(12, 16, 24, 0.65);
+  --bg-popover: rgba(20, 26, 38, 0.92);
+
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color-subtle: rgba(255, 255, 255, 0.04);
+  --border-color-active: rgba(255, 255, 255, 0.18);
+  --border-accent: rgba(59, 130, 246, 0.4);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-accent: #60a5fa;
+
+  --accent-primary: #3b82f6;
+  --accent-primary-hover: #2563eb;
+  --accent-secondary: #8b5cf6;
+  --accent-success: #10b981;
+  --accent-warning: #f59e0b;
+  --accent-danger: #ef4444;
+  --accent-info: #06b6d4;
+
+  --accent-success-bg: rgba(16, 185, 129, 0.12);
+  --accent-warning-bg: rgba(245, 158, 11, 0.12);
+  --accent-danger-bg: rgba(239, 68, 68, 0.12);
+  --accent-info-bg: rgba(6, 182, 212, 0.12);
+  --accent-primary-bg: rgba(59, 130, 246, 0.12);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-full: 9999px;
+
+  --backdrop-blur: blur(20px);
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-theme="light"] {
+  --bg-app: #f1f5f9;
+  --bg-wallpaper: radial-gradient(circle at 20% 20%, #e2e8f0 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, #f8fafc 0%, transparent 50%),
+                  #f1f5f9;
+  --bg-surface: rgba(255, 255, 255, 0.82);
+  --bg-surface-hover: rgba(241, 245, 249, 0.9);
+  --bg-surface-active: rgba(226, 232, 240, 0.95);
+  --bg-glass: rgba(255, 255, 255, 0.75);
+  --bg-glass-solid: #ffffff;
+  --bg-topbar: rgba(255, 255, 255, 0.88);
+  --bg-sidebar: rgba(248, 250, 252, 0.85);
+  --bg-dock: rgba(255, 255, 255, 0.7);
+  --bg-card: rgba(255, 255, 255, 0.8);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --bg-input: rgba(241, 245, 249, 0.9);
+  --bg-popover: rgba(255, 255, 255, 0.96);
+
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-color-subtle: rgba(0, 0, 0, 0.04);
+  --border-color-active: rgba(0, 0, 0, 0.16);
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --text-accent: #2563eb;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Global Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  user-select: none;
+}
+
+/* Desktop Canvas Layout */
+.eduvanta-os-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-wallpaper);
+  position: relative;
+  overflow: hidden;
+}
+
+.eduvanta-main-layout {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 36px);
+  position: relative;
+  overflow: hidden;
+}
+
+.eduvanta-content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px 24px 90px 24px;
+  position: relative;
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: var(--bg-surface);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.glass-panel:hover {
+  border-color: var(--border-color-active);
+}
+
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.glass-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-color-active);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Traffic Light Window Buttons */
+.traffic-lights {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.traffic-light-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.traffic-close { background-color: #ff5f56; border: 1px solid #e0443e; }
+.traffic-minimize { background-color: #ffbd2e; border: 1px solid #dea123; }
+.traffic-expand { background-color: #27c93f; border: 1px solid #1aab29; }
+
+/* Buttons & Inputs */
+.mac-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  backdrop-filter: var(--backdrop-blur);
+  outline: none;
+}
+
+.mac-btn:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--border-color-active);
+}
+
+.mac-btn-primary {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 10px rgba(59, 130, 246, 0.35);
+}
+
+.mac-btn-primary:hover {
+  background: var(--accent-primary-hover);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.5);
+  transform: translateY(-1px);
+}
+
+.mac-btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: var(--radius-sm);
+}
+
+.mac-input {
+  width: 100%;
+  padding: 8px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 13px;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.mac-input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  background: var(--bg-surface);
+}
+
+.mac-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Badge Styles */
+.mac-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.mac-badge-success { background: var(--accent-success-bg); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.3); }
+.mac-badge-warning { background: var(--accent-warning-bg); color: var(--accent-warning); border: 1px solid rgba(245, 158, 11, 0.3); }
+.mac-badge-danger { background: var(--accent-danger-bg); color: var(--accent-danger); border: 1px solid rgba(239, 68, 68, 0.3); }
+.mac-badge-info { background: var(--accent-info-bg); color: var(--accent-info); border: 1px solid rgba(6, 182, 212, 0.3); }
+.mac-badge-primary { background: var(--accent-primary-bg); color: var(--accent-primary); border: 1px solid rgba(59, 130, 246, 0.3); }
+
+/* Table Styles */
+.mac-table-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+}
+
+.mac-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+
+.mac-table th {
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-secondary);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.mac-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color-subtle);
+  color: var(--text-primary);
+}
+
+.mac-table tr:last-child td {
+  border-bottom: none;
+}
+
+.mac-table tr:hover td {
+  background: var(--bg-surface-hover);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.98); }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--transition-normal) forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown var(--transition-fast) forwards;
+}
+
+/* Utilities */
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
